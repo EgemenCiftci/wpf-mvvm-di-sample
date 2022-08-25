@@ -1,5 +1,4 @@
-﻿using DevExpress.Mvvm;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using WPF_MVVM_DI_Sample.Business.Abstract;
 using WPF_MVVM_DI_Sample.Business.Services;
@@ -8,36 +7,35 @@ using WPF_MVVM_DI_Sample.Data.Repositories;
 using WPF_MVVM_DI_Sample.ViewModels;
 using WPF_MVVM_DI_Sample.Views;
 
-namespace WPF_MVVM_DI_Sample
+namespace WPF_MVVM_DI_Sample;
+
+/// <summary>
+/// Interaction logic for App.xaml
+/// </summary>
+public partial class App
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public partial class App : Application
+    private ServiceProvider _serviceProvider;
+
+    private void Application_Startup(object sender, StartupEventArgs e)
     {
-        private ServiceProvider ServiceProvider;
+        ServiceCollection serviceCollection = new();
+        ConfigureServices(serviceCollection);
 
-        private void Application_Startup(object sender, StartupEventArgs e)
-        {
-            ServiceCollection serviceCollection = new();
-            ConfigureServices(serviceCollection);
+        _serviceProvider = serviceCollection.BuildServiceProvider();
 
-            ServiceProvider = serviceCollection.BuildServiceProvider();
+        var mainWindow = _serviceProvider.GetRequiredService<Window>();
+        var mainView = _serviceProvider.GetRequiredService<MainView>();
+        mainView.DataContext = _serviceProvider.GetRequiredService<MainViewModel>();
+        mainWindow.Content = mainView;
+        mainWindow.Show();
+    }
 
-            Window mainWindow = ServiceProvider.GetRequiredService<Window>();
-            MainView mainView = ServiceProvider.GetRequiredService<MainView>();
-            mainView.DataContext = ServiceProvider.GetRequiredService<MainViewModel>();
-            mainWindow.Content = mainView;
-            mainWindow.Show();
-        }
-
-        private static void ConfigureServices(IServiceCollection services)
-        {
-            _ = services.AddSingleton<IItemService, ItemService>();
-            _ = services.AddScoped<IItemRepository, ItemRepository>();
-            _ = services.AddSingleton(typeof(MainViewModel));
-            _ = services.AddSingleton(typeof(MainView));
-            _ = services.AddSingleton(typeof(Window));
-        }
+    private static void ConfigureServices(IServiceCollection services)
+    {
+        _ = services.AddSingleton<IItemService, ItemService>();
+        _ = services.AddScoped<IItemRepository, ItemRepository>();
+        _ = services.AddSingleton(typeof(MainViewModel));
+        _ = services.AddSingleton(typeof(MainView));
+        _ = services.AddSingleton(typeof(Window));
     }
 }

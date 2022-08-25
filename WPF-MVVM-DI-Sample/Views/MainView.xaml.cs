@@ -1,15 +1,12 @@
-﻿using System.Windows.Controls;
+﻿namespace WPF_MVVM_DI_Sample.Views;
 
-namespace WPF_MVVM_DI_Sample.Views
+/// <summary>
+/// Interaction logic for MainView.xaml
+/// </summary>
+public partial class MainView
 {
-    /// <summary>
-    /// Interaction logic for MainView.xaml
-    /// </summary>
-    public partial class MainView : UserControl
+    public MainView()
     {
-        public MainView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

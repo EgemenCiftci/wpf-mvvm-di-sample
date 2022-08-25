@@ -3,20 +3,19 @@ using WPF_MVVM_DI_Sample.Business.Abstract;
 using WPF_MVVM_DI_Sample.Data.Abstract;
 using WPF_MVVM_DI_Sample.Models;
 
-namespace WPF_MVVM_DI_Sample.Business.Services
+namespace WPF_MVVM_DI_Sample.Business.Services;
+
+public class ItemService : IItemService
 {
-    public class ItemService : IItemService
+    private readonly IItemRepository _itemRepository;
+
+    public ItemService(IItemRepository itemRepository)
     {
-        public readonly IItemRepository itemRepository;
+        _itemRepository = itemRepository;
+    }
 
-        public ItemService(IItemRepository itemRepository)
-        {
-            this.itemRepository = itemRepository;
-        }
-
-        public List<Item> All()
-        {
-            return itemRepository.GetAll();
-        }
+    public List<Item> All()
+    {
+        return _itemRepository.GetAll();
     }
 }
