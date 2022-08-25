@@ -2,7 +2,7 @@
 using WPF_MVVM_DI_Sample.Data.Abstract;
 using WPF_MVVM_DI_Sample.Models;
 
-namespace WPF_MVVM_DI_Sample.Data.Repos
+namespace WPF_MVVM_DI_Sample.Data.Repositories
 {
     public class ItemRepository : IItemRepository
     {

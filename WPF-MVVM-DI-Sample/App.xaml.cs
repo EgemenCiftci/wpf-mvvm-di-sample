@@ -4,7 +4,7 @@ using System.Windows;
 using WPF_MVVM_DI_Sample.Business.Abstract;
 using WPF_MVVM_DI_Sample.Business.Services;
 using WPF_MVVM_DI_Sample.Data.Abstract;
-using WPF_MVVM_DI_Sample.Data.Repos;
+using WPF_MVVM_DI_Sample.Data.Repositories;
 using WPF_MVVM_DI_Sample.ViewModels;
 using WPF_MVVM_DI_Sample.Views;
 
@@ -33,11 +33,11 @@ namespace WPF_MVVM_DI_Sample
 
         private static void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IItemService, ItemService>();
-            services.AddScoped<IItemRepository, ItemRepository>();
-            services.AddSingleton(typeof(MainViewModel));
-            services.AddSingleton(typeof(MainView));
-            services.AddSingleton(typeof(Window));
+            _ = services.AddSingleton<IItemService, ItemService>();
+            _ = services.AddScoped<IItemRepository, ItemRepository>();
+            _ = services.AddSingleton(typeof(MainViewModel));
+            _ = services.AddSingleton(typeof(MainView));
+            _ = services.AddSingleton(typeof(Window));
         }
     }
 }

@@ -7,9 +7,7 @@ namespace WPF_MVVM_DI_Sample.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-#pragma warning disable IDE0052 // Remove unread private members
-        private readonly IItemService itemService;
-#pragma warning restore IDE0052 // Remove unread private members
+        private readonly IItemService _itemService;
 
         public ObservableCollection<Item> Items
         {
@@ -25,7 +23,7 @@ namespace WPF_MVVM_DI_Sample.ViewModels
 
         public MainViewModel(IItemService itemService)
         {
-            this.itemService = itemService;
+            _itemService = itemService;
             Items = new ObservableCollection<Item>(itemService.All());
             Text = "Hello World!";
         }
