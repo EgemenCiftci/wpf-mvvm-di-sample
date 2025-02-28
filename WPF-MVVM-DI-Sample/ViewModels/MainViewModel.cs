@@ -1,30 +1,25 @@
-﻿using DevExpress.Mvvm;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.ObjectModel;
 using WPF_MVVM_DI_Sample.Business.Abstract;
 using WPF_MVVM_DI_Sample.Models;
 
 namespace WPF_MVVM_DI_Sample.ViewModels;
 
-public class MainViewModel : ViewModelBase
+public class MainViewModel(IItemService itemService) : ObservableObject
 {
-    private readonly IItemService _itemService;
+    private ObservableCollection<Item> items = new(itemService.All());
 
     public ObservableCollection<Item> Items
     {
-        get => GetProperty(() => Items);
-        set => SetProperty(() => Items, value);
+        get => items;
+        set => SetProperty(ref items, value);
     }
+
+    private string text = "Hello World!";
 
     public string Text
     {
-        get => GetProperty(() => Text);
-        set => SetProperty(() => Text, value);
-    }
-
-    public MainViewModel(IItemService itemService)
-    {
-        _itemService = itemService;
-        Items = new ObservableCollection<Item>(itemService.All());
-        Text = "Hello World!";
+        get => text;
+        set => SetProperty(ref text, value);
     }
 }

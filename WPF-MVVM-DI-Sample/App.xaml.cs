@@ -23,8 +23,8 @@ public partial class App
 
         _serviceProvider = serviceCollection.BuildServiceProvider();
 
-        var mainWindow = _serviceProvider.GetRequiredService<Window>();
-        var mainView = _serviceProvider.GetRequiredService<MainView>();
+        Window mainWindow = _serviceProvider.GetRequiredService<Window>();
+        MainView mainView = _serviceProvider.GetRequiredService<MainView>();
         mainView.DataContext = _serviceProvider.GetRequiredService<MainViewModel>();
         mainWindow.Content = mainView;
         mainWindow.Show();
@@ -34,8 +34,8 @@ public partial class App
     {
         _ = services.AddSingleton<IItemService, ItemService>();
         _ = services.AddScoped<IItemRepository, ItemRepository>();
-        _ = services.AddSingleton(typeof(MainViewModel));
-        _ = services.AddSingleton(typeof(MainView));
-        _ = services.AddSingleton(typeof(Window));
+        _ = services.AddSingleton<MainViewModel>();
+        _ = services.AddSingleton<MainView>();
+        _ = services.AddSingleton<Window>();
     }
 }

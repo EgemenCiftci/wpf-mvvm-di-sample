@@ -5,17 +5,10 @@ using WPF_MVVM_DI_Sample.Models;
 
 namespace WPF_MVVM_DI_Sample.Business.Services;
 
-public class ItemService : IItemService
+public class ItemService(IItemRepository itemRepository) : IItemService
 {
-    private readonly IItemRepository _itemRepository;
-
-    public ItemService(IItemRepository itemRepository)
-    {
-        _itemRepository = itemRepository;
-    }
-
     public List<Item> All()
     {
-        return _itemRepository.GetAll();
+        return itemRepository.GetAll();
     }
 }
